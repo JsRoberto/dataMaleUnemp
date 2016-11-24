@@ -7,8 +7,8 @@
 library(ggplot2)
 
 #Caso necessário, o arquivo "dataMU.csv" é baixado e armazenado no diretório do R.
-urlFile <- c("https://raw.githubusercontent.com/JsRoberto/dataMaleUnemployment/master/data
-             MU.csv")
+urlFile <-
+      c("https://raw.githubusercontent.com/JsRoberto/dataMaleUnemp/master/dataMU.csv")
 localFile <- c("./dataMU.csv")
 
 if (!exists(localFile)) {
@@ -108,8 +108,8 @@ plotz <- function() {
       
       #O objeto "p1" plota a série original "Zorg1" e a série estimada "Zest".
       p1 <<- ggplot(dataMU[idx1:idx2,], aes(x = t, y = Zorg1)) + 
-             geom_line(color = "blue3", size = 1.2) + 
-             geom_line(mapping = aes(y = Zest), color = "red3", size = 1.2) +
+             geom_line(color = "blue3", size = 1.1) + 
+             geom_line(mapping = aes(y = Zest), color = "red3", size = 1.1) +
              scale_x_continuous(breaks = seq(12, idx2, by = 24),
                                 labels = paste(rep("Dec", idx2/24 - i),
                                                seq(start(Z)[1],end(Z)[1]-ap, by = 2))) +
@@ -120,9 +120,9 @@ plotz <- function() {
       
       #O objeto "p2" plota a série original "Zorg1", tendência "Tt" e sazonalidade "St".
       p2 <<- ggplot(dataMU[idx1:idx2,], aes(x = t, y = Zorg1)) +
-             geom_line(color = "blue3", size = 1.2) + 
-             geom_line(mapping = aes(y = St), color = "red3", size = 1.2) +
-             geom_line(mapping = aes(y = Tt), color = "green3", size = 1.2) +
+             geom_line(color = "blue3", size = 1.1) + 
+             geom_line(mapping = aes(y = St), color = "red3", size = 1.1) +
+             geom_line(mapping = aes(y = Tt), color = "green3", size = 1.1) +
              scale_x_continuous(breaks = seq(12, idx2, by = 24),
                                 labels = paste(rep("Dec", idx2/24 - i),
                                                seq(start(Z)[1],end(Z)[1]-ap, by = 2))) +
@@ -134,9 +134,9 @@ plotz <- function() {
       #O objeto "p3" plota o resíduo "at" e sua média, sendo obtido pela diferença entre a
       # série original "Zorg1" e a série estimada "Zest".
       p3 <<- ggplot(dataMU[idx1:idx2,], aes(x = t, y = at)) +
-             geom_line(color = "blue3", size = 1.2) +
+             geom_line(color = "blue3", size = 1.1) +
              geom_line(mapping = aes(y = mean(at)),
-                       color = "red3", lty = "dashed", size = 1.2) +
+                       color = "red3", lty = "dashed", size = 1.1) +
              scale_x_continuous(breaks = seq(12, idx2, by = 24),
                                 labels = paste(rep("Dec", idx2/24 - i),
                                                seq(start(Z)[1],end(Z)[1]-ap, by = 2))) +
@@ -147,8 +147,8 @@ plotz <- function() {
       
       #O objeto "p4" plota a séria original "Zorg2" e a série de previsão "Zprev".
       p4 <<- ggplot(dataMU[(idx2+1):idx3,], aes(x = t, y = Zorg2)) +
-             geom_line(color = "blue3", size = 1.2) +
-             geom_line(mapping = aes(y = Zprev), color = "green3", size = 1.2) +
+             geom_line(color = "blue3", size = 1.1) +
+             geom_line(mapping = aes(y = Zprev), color = "green3", size = 1.1) +
              scale_x_continuous(breaks = seq(idx2 + 12, idx3, by = 12),
                                 labels = paste(rep("Dec", (idx3-idx2)/12),
                                                (end(Z)[1]-ap+1):end(Z)[1])) +
