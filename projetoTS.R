@@ -94,9 +94,6 @@ MMQz <- function(Z, pol.order, anos.prev) {
 #A função "plotz()" produz quatro objetos gráficos, que plotam as características do data.
 #frame "dataMU".
 plotz <- function() {
-      #A condição abaixo adapta o código para quaisquer valores de "ap" (ou "anos.prev").
-      if (ap%%2==1) i <- 1 else i <- 0
-      
       #A variável abaixo modifica configuração de protagem padrão da biblioteca "ggplot2".
       mytheme <- theme(plot.title=element_text(face="bold", size="14", color="brown"),
                        axis.title=element_text(face="bold", size=10, color="brown"),
@@ -111,11 +108,10 @@ plotz <- function() {
              geom_line(color = "blue3", size = 1.1) + 
              geom_line(mapping = aes(y = Zest), color = "red3", size = 1.1) +
              scale_x_continuous(breaks = seq(12, idx2, by = 24),
-                                labels = paste(rep("Dec", idx2/24 - i),
-                                               seq(start(Z)[1],end(Z)[1]-ap, by = 2))) +
+                                labels = seq(start(Z)[1], end(Z)[1]-ap, by = 2)) +
              labs(title = paste0("American male unemployment (16-19 years) 1948-",
                                  end(Z)[1] - ap),
-                  x = "Time (mouth)", y = "Unemployers (1000s)") +
+                  x = "Months (December)", y = "Unemployers (1000s)") +
              mytheme
       
       #O objeto "p2" plota a série original "Zorg1", tendência "Tt" e sazonalidade "St".
@@ -124,11 +120,10 @@ plotz <- function() {
              geom_line(mapping = aes(y = St), color = "red3", size = 1.1) +
              geom_line(mapping = aes(y = Tt), color = "green3", size = 1.1) +
              scale_x_continuous(breaks = seq(12, idx2, by = 24),
-                                labels = paste(rep("Dec", idx2/24 - i),
-                                               seq(start(Z)[1],end(Z)[1]-ap, by = 2))) +
+                                labels = seq(start(Z)[1], end(Z)[1]-ap, by = 2)) +
              labs(title = paste0("American male unemployment (16-19 years) 1948-",
                                  end(Z)[1] - ap),
-                  x = "Time (mouth)", y = "Unemployers (1000s)") +
+                  x = "Months (December)", y = "Unemployers (1000s)") +
              mytheme
       
       #O objeto "p3" plota o resíduo "at" e sua média, sendo obtido pela diferença entre a
@@ -138,23 +133,22 @@ plotz <- function() {
              geom_line(mapping = aes(y = mean(at)),
                        color = "red3", lty = "dashed", size = 1.1) +
              scale_x_continuous(breaks = seq(12, idx2, by = 24),
-                                labels = paste(rep("Dec", idx2/24 - i),
-                                               seq(start(Z)[1],end(Z)[1]-ap, by = 2))) +
+                                labels = seq(start(Z)[1], end(Z)[1]-ap, by = 2)) +
              labs(title = paste0("American male unemployment (16-19 years) 1948-",
                                  end(Z)[1] - ap),
-                  x = "Time (mouth)", y = "Residue a(t)") + 
+                  x = "Months (December)", y = "Residue a(t)") + 
              mytheme
       
       #O objeto "p4" plota a séria original "Zorg2" e a série de previsão "Zprev".
       p4 <<- ggplot(dataMU[(idx2+1):idx3,], aes(x = t, y = Zorg2)) +
              geom_line(color = "blue3", size = 1.1) +
              geom_line(mapping = aes(y = Zprev), color = "green3", size = 1.1) +
-             scale_x_continuous(breaks = seq(idx2 + 12, idx3, by = 12),
-                                labels = paste(rep("Dec", (idx3-idx2)/12),
-                                               (end(Z)[1]-ap+1):end(Z)[1])) +
+             scale_x_continuous(breaks = seq(idx2 + 1, idx3, by = 1),
+                                labels = rep(c("Jan","Feb","Mar","Apr","May","Jun","Jul",
+                                               "Aug","Sep","Oct", "Nov", "Dec"), ap)) +
              labs(title = paste0("Forcasting american male unemployment (16-19 years) ",
-                                 end(Z)[1] - ap, "-1981"),
-                  x = "Time (mouth)", y = "Unemployers (1000s)") +
+                                 end(Z)[1]-ap+1, "-1981"),
+                  x = "Months (All)", y = "Unemployers (1000s)") +
              mytheme
 }
 
